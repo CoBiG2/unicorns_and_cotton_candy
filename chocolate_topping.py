@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Copyright 2014 Francisco Pina Martins <f.pinamartins@gmail.com>
+# Copyright 2014 CoBiG^2 <f.pinamartins@gmail.com>
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -14,6 +14,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Author: Bruno Costa
+# Author: Francisco P Martins
+# Author: Joana Fino
+# Last update: 03/10/2014
+
+#Usage: python3 chocolate_topping.py file.tags.tsv
 from sys import argv
 
 def parser(tags_filename):
