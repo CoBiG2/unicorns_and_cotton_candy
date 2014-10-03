@@ -4,7 +4,7 @@
 #
 #  parser.py
 #  
-#  Copyright 2014 Cogig2 <cobig2@gmail.com>
+# Copyright 2014 CoBiG^2 <f.pinamartins@gmail.com>
 #  
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #  
-#  getparam.py v1.0
+#  parser.py v1.0
 #  Author: Bruno Costa
 #  Author: Francisco P Martins
 #  Author: Joana Fino
@@ -75,15 +75,15 @@ class noname(object):
                     linha.SECnd_El=pre[2]
                     primary.append([pre[5],linha])
 
-                if pre[3]=="secundary":
+                if pre[3]=="secondary":
                     linha=rad()
                     linha.seq=pre[5]
                     linha.strand="-"
                     linha.locus=pre[1]
                     linha.SECnd_El=pre[2]
-                    secundary.append([pre[5],linha])
+                    secondary.append([pre[5],linha])
         self.primary=dict(primary)
-        self.secundary=dict(secundary)
+        self.secondary=dict(secondary)
 
     def merge(self):
         #merges primary reads? with secundary reads?
