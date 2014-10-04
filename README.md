@@ -7,7 +7,7 @@ Make sure you have a doctors perscription if you use this software.
 
 Excessive consumption of cotton candy my lead to seeing unicorns.
 
-<strong>Disclairmer:</strong>
+<strong>Disclaimer:</strong>
 Unicorns are ficticious creatures. If you see one, you are in no way entitled to compensation or payment of psychiatric bill's by our part.
 Use at <em>own </em> risk.
 
