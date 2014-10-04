@@ -95,8 +95,4 @@ class noname(object):
 
 #Loads data into array
 db=noname()
-<<<<<<< HEAD
 print db.sequence("7_1116_11084_29627_1")
-=======
-print db.sequence("7_1116_11084_29627_1")
->>>>>>> f7cda020899d7dce24f5b0c92fec17f7aeafbb10
