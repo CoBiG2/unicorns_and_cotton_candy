@@ -1,4 +1,4 @@
-[Logo] http://s3.favim.com/orig/46/cotton-candy-llama-ohmyshit-rainbow-unicorn-Favim.com-430326.jpg "Unicorns and Cotton candy"
+![alt text] (http://s3.favim.com/orig/46/cotton-candy-llama-ohmyshit-rainbow-unicorn-Favim.com-430326.jpg "Unicorns and Cotton candy")
 
 This is a complete parser, if you wish to transform nothing into nothing while creating entrophy. Use this
 can be handy in extreme situations, however is equally usefull in other situations. 
