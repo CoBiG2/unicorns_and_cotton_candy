@@ -67,7 +67,7 @@ class noname(object):
             for tag_line in tag:
                 #pre parses line removing consequetive tabs
                 pre=re.split("\t+",tag_line)
-		if pre[3]=="model"
+                if pre[3]=="model":
                     if re.search("e",pre[4]):
                         add=True
                     else:
