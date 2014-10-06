@@ -54,7 +54,7 @@ class rad(object):
         self.locus=None
         #mudar nome nao sei se intressa ou o que e
         self.SECnd_El=None
-	self.type=None
+        self.type=None
 
 
 class noname(object):
@@ -68,7 +68,7 @@ class noname(object):
                 #pre parses line removing consequetive tabs
                 pre=re.split("\t+",tag_line)
                 if pre[3]=="model":
-                    if re.search("e",pre[4]):
+                    if re.search("E",pre[4]):
                         add=True
                     else:
                         add=False
@@ -104,4 +104,5 @@ class noname(object):
 
 #Loads data into array
 db=noname()
-print db.sequence("7_1116_11084_29627_1")
+print db.primary
+#print db.sequence("7_1116_11084_29627_1")
