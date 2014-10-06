@@ -54,6 +54,7 @@ class rad(object):
         self.locus=None
         #mudar nome nao sei se intressa ou o que e
         self.SECnd_El=None
+	self.type=None
 
 
 class noname(object):
@@ -66,22 +67,30 @@ class noname(object):
             for tag_line in tag:
                 #pre parses line removing consequetive tabs
                 pre=re.split("\t+",tag_line)
-
+		if pre[3]=="model"
+                    if re.search("e",pre[4]):
+                        add=True
+                    else:
+                        add=False
                 if pre[3]=="primary":
-                    linha=rad()
-                    linha.seq=pre[6]
-                    linha.strand="+"
-                    linha.locus=pre[1]
-                    linha.SECnd_El=pre[2]
-                    primary.append([pre[5],linha])
+                    if add:
+                        linha=rad()
+                        linha.seq=pre[6]
+                        linha.strand="+"
+                        linha.locus=pre[1]
+                        linha.SECnd_El=pre[2]
+                        linha.type="primary"
+                        primary.append([pre[5],linha])
 
                 if pre[3]=="secondary":
-                    linha=rad()
-                    linha.seq=pre[5]
-                    linha.strand="-"
-                    linha.locus=pre[1]
-                    linha.SECnd_El=pre[2]
-                    secondary.append([pre[5],linha])
+                    if add:      
+                        linha=rad()
+                        linha.seq=pre[5]
+                        linha.strand="-"
+                        linha.locus=pre[1]
+                        linha.SECnd_El=pre[2]
+                        linha.type="secondary"
+                        primary.append([pre[5],linha])
         self.primary=dict(primary)
         self.secondary=dict(secondary)
 
