@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 #
 #  parser.py
@@ -21,11 +20,6 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #
-#  parser.py v1.0
-#  Author: Bruno Costa
-#  Author: Francisco P Martins
-#  Author: Joana Fino
-#  Last update: 03/10/2014
 
 import argparse
 
@@ -111,3 +105,9 @@ class NoName(object):
 db = NoName()
 print(db.primary)
 #print db.sequence("7_1116_11084_29627_1")
+
+__author__ = "Bruno Costa, Diogo N. Silva, Francisco Pina-Martins, Joana Fino"
+__credits__ = ["Bruno Costa", "Diogo N. Silva", "Francisco Pina-Martins, "
+              "Joana Fino"]
+__copyright__ = "Copyright 2014, CoBiG²"
+__version__ = "1.0"
