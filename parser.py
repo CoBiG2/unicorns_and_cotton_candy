@@ -26,9 +26,11 @@ import argparse
 parser = argparse.ArgumentParser(description="Remote tool to getting zones or "
                                  "links or something for rad sequence data "
                                  "Creates a map or something")
+
 parser.add_argument("-d", dest="dir", help="Optional, if provided searches the"
                     " specified directory for tags.tsv files, if no file"
                     " directory is provided uses current dir.")
+
 arg = parser.parse_args()
 
 #import string
@@ -48,7 +50,9 @@ else:
 
 class Rad(object):
     def __init__(self):
-        self.seq = None
+
+        #Initializing main attributes ordered as in Stacks manual
+        self.sequence = None
         self.strand = None
         self.locus = None
         #mudar nome nao sei se intressa ou o que e
