@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 #
@@ -29,80 +29,85 @@
 
 import argparse
 
-parser = argparse.ArgumentParser(description="Remote tool to getting zones or links or something for rad sequence data Creates a map or something")
-parser.add_argument("-d",dest="dir", help="Optional, if provided searches the specified directory for tags.tsv files, if no file directory is provided uses current dir.")
+parser = argparse.ArgumentParser(description="Remote tool to getting zones or "
+                                 "links or something for rad sequence data "
+                                 "Creates a map or something")
+parser.add_argument("-d", dest="dir", help="Optional, if provided searches the"
+                    " specified directory for tags.tsv files, if no file"
+                    " directory is provided uses current dir.")
 arg = parser.parse_args()
 
-import string
+#import string
 import re
 import glob
-path_tags=arg.dir
 
-tag_files=[]
+path_tags = arg.dir
 
-#Gets an array of tag.tsv files. 
-if path_tags==None:
-	tag_files=glob.glob("*.tags.tsv")
+tag_files = []
+
+#Gets an array of tag.tsv files.
+if path_tags is None:
+    tag_files = glob.glob("*.tags.tsv")
 else:
-	tag_files=glob.glob(path_tags+"/*.tags.tsv")
+    tag_files = glob.glob(path_tags + "/*.tags.tsv")
 
 
-class rad(object):
+class Rad(object):
     def __init__(self):
-        self.seq=None
-        self.strand=None
-        self.locus=None
+        self.seq = None
+        self.strand = None
+        self.locus = None
         #mudar nome nao sei se intressa ou o que e
-        self.SECnd_El=None
-        self.type=None
+        self.SECnd_El = None
+        self.type = None
 
 
-class noname(object):
+class NoName(object):
     def __init__(self):
         #loads data
-        primary=[]
-        secondary=[]
+        primary = []
+        secondary = []
         for i in tag_files:
-            tag=open(i,"r")
+            tag = open(i, "r")
             for tag_line in tag:
                 #pre parses line removing consequetive tabs
-                pre=re.split("\t+",tag_line)
-                if pre[3]=="model":
-                    if re.search("E",pre[4]):
-                        add=True
+                pre = re.split("\t+", tag_line)
+                if pre[3] == "model":
+                    if re.search("E", pre[4]):
+                        add = True
                     else:
-                        add=False
-                if pre[3]=="primary":
+                        add = False
+                if pre[3] == "primary":
                     if add:
-                        linha=rad()
-                        linha.seq=pre[6]
-                        linha.strand="+"
-                        linha.locus=pre[1]
-                        linha.SECnd_El=pre[2]
-                        linha.type="primary"
-                        primary.append([pre[5],linha])
+                        linha = Rad()
+                        linha.seq = pre[6]
+                        linha.strand = "+"
+                        linha.locus = pre[1]
+                        linha.SECnd_El = pre[2]
+                        linha.type = "primary"
+                        primary.append([pre[5], linha])
 
-                if pre[3]=="secondary":
+                if pre[3] == "secondary":
                     if add:      
-                        linha=rad()
-                        linha.seq=pre[5]
-                        linha.strand="-"
-                        linha.locus=pre[1]
-                        linha.SECnd_El=pre[2]
-                        linha.type="secondary"
-                        primary.append([pre[5],linha])
-        self.primary=dict(primary)
-        self.secondary=dict(secondary)
+                        linha = Rad()
+                        linha.seq = pre[5]
+                        linha.strand = "-"
+                        linha.locus = pre[1]
+                        linha.SECnd_El = pre[2]
+                        linha.type = "secondary"
+                        primary.append([pre[5], linha])
+        self.primary = dict(primary)
+        self.secondary = dict(secondary)
 
     def merge(self):
         #merges primary reads? with secundary reads?
-        print "Merged"
+        print("Merged")
 
-    def sequence(self,id):
+    def sequence(self, id):
         #returns the sequence for the id
         return self.primary[id].seq
 
 #Loads data into array
-db=noname()
-print db.primary
+db = NoName()
+print(db.primary)
 #print db.sequence("7_1116_11084_29627_1")
