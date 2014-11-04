@@ -21,17 +21,17 @@
 #  MA 02110-1301, USA.
 #
 
-import argparse
+#import argparse
 
-parser = argparse.ArgumentParser(description="Remote tool to getting zones or "
-                                 "links or something for rad sequence data "
-                                 "Creates a map or something")
+#parser = argparse.ArgumentParser(description="Remote tool to getting zones or "
+                                 #"links or something for rad sequence data "
+                                 #"Creates a map or something")
 
-parser.add_argument("-d", dest="dir", help="Optional, if provided searches the"
-                    " specified directory for tags.tsv files, if no file"
-                    " directory is provided uses current dir.")
+#parser.add_argument("-d", dest="dir", help="Optional, if provided searches the"
+                    #" specified directory for tags.tsv files, if no file"
+                    #" directory is provided uses current dir.")
 
-arg = parser.parse_args()
+#arg = parser.parse_args()
 
 #import string
 #import re
@@ -67,7 +67,7 @@ class Rad(object):
         """ Parses a line of a tsv file from stacks and retrieves information
         for several attributes """
 
-        string_fields = self.string.strip().split()
+        string_fields = self.string.strip().split("\t")
 
         self.locus = string_fields[2]
         self.type = string_fields[6]
@@ -86,16 +86,18 @@ class Tags(object):
         self.tag_file = tag_file
 
         # Gets number of lines for progression text
-        line_size = __count_lines()
+        line_size = self.__count_lines()
         c = 1.0
 
         self.rad_object_list = []
         tag_handle = open(self.tag_file)
 
         for tag_line in tag_handle:
-            print("\rParsing tags file (%s%%)" % (c / line_size) * 100)
-            self.rad_object_list.append(Rad(tag_line))
-            c += 1.0
+            print("\rParsing tags file (%s%%)" % ((c / line_size) * 100),
+                  end="")
+            if tag_line.strip() != "":
+                self.rad_object_list.append(Rad(tag_line))
+                c += 1.0
 
     def __count_lines(self):
 
