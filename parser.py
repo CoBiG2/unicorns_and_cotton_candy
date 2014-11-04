@@ -67,7 +67,7 @@ class Rad(object):
         """ Parses a line of a tsv file from stacks and retrieves information
         for several attributes """
 
-        string_fields = self.string.split()
+        string_fields = self.string.strip().split()
 
         self.locus = string_fields[2]
         self.type = string_fields[6]
@@ -79,42 +79,15 @@ class Rad(object):
             self.sequence = string_fields[9]
 
 
-class NoName(object):
-    def __init__(self):
-        #loads data
-        primary = []
-        secondary = []
-        for i in tag_files:
-            tag = open(i, "r")
-            for tag_line in tag:
-                #pre parses line removing consequetive tabs
-                pre = re.split("\t+", tag_line)
-                if pre[3] == "model":
-                    if re.search("E", pre[4]):
-                        add = True
-                    else:
-                        add = False
-                if pre[3] == "primary":
-                    if add:
-                        linha = Rad()
-                        linha.seq = pre[6]
-                        linha.strand = "+"
-                        linha.locus = pre[1]
-                        linha.SECnd_El = pre[2]
-                        linha.type = "primary"
-                        primary.append([pre[5], linha])
+class Tags(object):
 
-                if pre[3] == "secondary":
-                    if add:      
-                        linha = Rad()
-                        linha.seq = pre[5]
-                        linha.strand = "-"
-                        linha.locus = pre[1]
-                        linha.SECnd_El = pre[2]
-                        linha.type = "secondary"
-                        primary.append([pre[5], linha])
-        self.primary = dict(primary)
-        self.secondary = dict(secondary)
+    def __init__(self, tag_file):
+
+        self.rad_object_list = []
+        tag_handle = open(tag_file)
+
+        for tag_line in tag_handle:
+            self.rad_object_list.append(Rad(tag_line))
 
     def merge(self):
         #merges primary reads? with secundary reads?
