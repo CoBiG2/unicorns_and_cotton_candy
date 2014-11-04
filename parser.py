@@ -89,13 +89,11 @@ class Tags(object):
         for tag_line in tag_handle:
             self.rad_object_list.append(Rad(tag_line))
 
-    def merge(self):
-        #merges primary reads? with secundary reads?
-        print("Merged")
-
-    def sequence(self, id):
+    def get_sequence(self, sequence_id):
         #returns the sequence for the id
-        return self.primary[id].seq
+
+        return next((x for x in self.rad_object_list if x.sequence_id ==
+                     sequence_id), None)
 
 #Loads data into array
 db = NoName()
