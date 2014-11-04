@@ -49,15 +49,34 @@ else:
 
 
 class Rad(object):
-    def __init__(self):
+    def __init__(self, string):
 
-        #Initializing main attributes ordered as in Stacks manual
-        self.sequence = None
-        self.strand = None
+        self.string = string
+
+        # Initializing main attributes ordered as in Stacks manual
         self.locus = None
-        #mudar nome nao sei se intressa ou o que e
-        self.SECnd_El = None
         self.type = None
+        self.sequence_id = None
+        self.sequence = None
+        #self.strand = None
+
+        # Parsing string
+        self.parse_string()
+
+    def parse_string(self):
+        """ Parses a line of a tsv file from stacks and retrieves information
+        for several attributes """
+
+        string_fields = self.string.split()
+
+        self.locus = string_fields[2]
+        self.type = string_fields[6]
+
+        if self.type != "consensus" or self.type != "model":
+            self.sequence_id = string_fields[8]
+
+        if self.type != "model":
+            self.sequence = string_fields[9]
 
 
 class NoName(object):
