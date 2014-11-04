@@ -83,11 +83,23 @@ class Tags(object):
 
     def __init__(self, tag_file):
 
+        self.tag_file = tag_file
+
+        # Gets number of lines for progression text
+        line_size = __count_lines()
+        c = 1.0
+
         self.rad_object_list = []
-        tag_handle = open(tag_file)
+        tag_handle = open(self.tag_file)
 
         for tag_line in tag_handle:
+            print("\rParsing tags file (%s%%)" % (c / line_size) * 100)
             self.rad_object_list.append(Rad(tag_line))
+            c += 1.0
+
+    def __count_lines(self):
+
+        return float(sum(1 for line in open(self.tag_file)))
 
     def get_sequence(self, sequence_id):
         #returns the sequence for the id
