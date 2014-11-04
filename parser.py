@@ -34,18 +34,18 @@ parser.add_argument("-d", dest="dir", help="Optional, if provided searches the"
 arg = parser.parse_args()
 
 #import string
-import re
-import glob
+#import re
+#import glob
 
-path_tags = arg.dir
+#path_tags = arg.dir
 
-tag_files = []
+#tag_files = []
 
 #Gets an array of tag.tsv files.
-if path_tags is None:
-    tag_files = glob.glob("*.tags.tsv")
-else:
-    tag_files = glob.glob(path_tags + "/*.tags.tsv")
+#if path_tags is None:
+#    tag_files = glob.glob("*.tags.tsv")
+#else:
+#    tag_files = glob.glob(path_tags + "/*.tags.tsv")
 
 
 class Rad(object):
@@ -95,9 +95,14 @@ class Tags(object):
         return next((x for x in self.rad_object_list if x.sequence_id ==
                      sequence_id), None)
 
+    def get_consensus(self):
+
+        return [x.sequence for x in self.rad_object_list if x.type ==
+                "consensus"]
+
 #Loads data into array
-db = NoName()
-print(db.primary)
+#db = NoName()
+#print(db.primary)
 #print db.sequence("7_1116_11084_29627_1")
 
 __author__ = "Bruno Costa, Diogo N. Silva, Francisco Pina-Martins, Joana Fino"
