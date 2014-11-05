@@ -84,7 +84,11 @@ class Rad(object):
 
 
 class Tags(object):
-
+    """
+    To facilitate an efficient parsing of large tsv files, methods of the Tag
+    object read the file multiple times instead of storing the information in
+    data structures.
+    """
     def __init__(self, tag_file):
 
         self.tag_file = tag_file
@@ -95,16 +99,37 @@ class Tags(object):
 
         return float(sum(1 for line in open(self.tag_file)))
 
-    def get_sequence(self, sequence_id):
-        #returns the sequence for the id
+    def export_column(self, file_name, *args, **kwargs):
+        """
+        Exports a single or multiple columns of a given tag file, depending
+        on the index provided through *args.
+        """
 
-        return next((x for x in self.rad_object_list if x.sequence_id ==
-                     sequence_id), None)
+        tag_handle = open(self.tag_file)
+        output_file = open(file_name, "w")
 
-    def get_consensus(self):
+        for line in tag_handle:
+            fields = line.split("\t")
 
-        return [x.sequence for x in self.rad_object_list if x.type ==
-                "consensus"]
+            # Checking conditions
+            for ind, condition in kwargs:
+
+                if fields[ind] != condition:
+                    continue
+
+            # Exporting values
+            values = "".join([line[x] for x in args])
+
+            output_file.write("%s\n" % values)
+
+
+
+
+
+
+
+
+
 
 #Loads data into array
 #db = NoName()
