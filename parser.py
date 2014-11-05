@@ -103,7 +103,13 @@ class Tags(object):
     def export_column(self, file_name, *args, **kwargs):
         """
         Exports a single or multiple columns of a given tag file, depending
-        on the index provided through *args.
+        on certain conditions of the line.
+        USAGE:
+        :param: file_name, string with the name of the output file
+        :param: args, provide the index of the columns to be exported (e.g. 3,5)
+        :param: kwargs, provide the conditions to be met following the syntax
+        condition = [index] (e.g. consensus=6, will only export columns from
+        a line whose column index 6 contains the word consensus)
         """
 
         tag_handle = open(self.tag_file)
