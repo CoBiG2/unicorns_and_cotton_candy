@@ -49,6 +49,10 @@
 
 
 class Rad(object):
+    """
+    As it is, creating an object for each line in a tags file consumes an
+    excessive amount of memory. Usage discouraged.
+    """
     def __init__(self, string):
 
         self.string = string
@@ -85,19 +89,7 @@ class Tags(object):
 
         self.tag_file = tag_file
 
-        # Gets number of lines for progression text
-        line_size = self.__count_lines()
-        c = 1.0
-
-        self.rad_object_list = []
         tag_handle = open(self.tag_file)
-
-        for tag_line in tag_handle:
-            print("\rParsing tags file (%s%%)" % ((c / line_size) * 100),
-                  end="")
-            if tag_line.strip() != "":
-                self.rad_object_list.append(Rad(tag_line))
-                c += 1.0
 
     def __count_lines(self):
 
