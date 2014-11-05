@@ -113,7 +113,6 @@ class Tags(object):
 
             # Checking conditions
             for ind, condition in kwargs:
-
                 if fields[ind] != condition:
                     continue
 
@@ -121,6 +120,25 @@ class Tags(object):
             values = "".join([line[x] for x in args])
 
             output_file.write("%s\n" % values)
+
+    def export_consensus(self, file_name):
+        """
+        Exports the consensus sequences from a tsv file into a new Fasta file
+        """
+
+        tag_handle = open(self.tag_file)
+        output_handle = open(file_name, "w")
+
+        for line in tag_handle:
+            fields = line.split("\t")
+
+            if fields[6] == "consensus":
+                sequence_id = "locus%s" % fields[2]
+                sequence = fields[9]
+                output_handle.write(">%s\n%s\n" % (sequence_id, sequence))
+
+        output_handle.close()
+        tag_handle.close()
 
 
 
