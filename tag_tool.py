@@ -28,6 +28,10 @@ parser = argparse.ArgumentParser(description="Tool for processing of stacks "
                                              "tag files")
 
 parser.add_argument("-in", dest="tag_file", help="The input tags file")
+parser.add_argument("--export", dest="export", choices=["fasta", "tsv"],
+                    help="Option to export some values of the tsv file into "
+                    "new file")
+parser.add_argument("-o", dest="output_file", help="Name for the output file")
 
 arg = parser.parse_args()
 
@@ -38,5 +42,9 @@ def main():
 
     tag_object = ps.Tags(tag_file)
 
+    if arg.export:
+
+        if "fasta" in arg.export:
+            tag_object.export_consensus()
 
 main()
