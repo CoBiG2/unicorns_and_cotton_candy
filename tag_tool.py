@@ -39,12 +39,13 @@ arg = parser.parse_args()
 def main():
     # Arguments
     tag_file = arg.tag_file
+    output_filename = arg.output_file
 
     tag_object = ps.Tags(tag_file)
 
     if arg.export:
 
         if "fasta" in arg.export:
-            tag_object.export_consensus()
+            tag_object.export_consensus(output_filename)
 
 main()
