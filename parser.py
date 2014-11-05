@@ -106,7 +106,7 @@ class Tags(object):
         """
 
         tag_handle = open(self.tag_file)
-        output_file = open(file_name, "w")
+        output_handle = open(file_name, "w")
 
         for line in tag_handle:
             fields = line.split("\t")
@@ -119,7 +119,10 @@ class Tags(object):
             # Exporting values
             values = "".join([line[x] for x in args])
 
-            output_file.write("%s\n" % values)
+            output_handle.write("%s\n" % values)
+
+        tag_handle.close()
+        output_handle.close()
 
     def export_consensus(self, file_name):
         """
