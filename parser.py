@@ -92,6 +92,7 @@ class Tags(object):
     def __init__(self, tag_file):
 
         self.tag_file = tag_file
+        self.line_size = self.__count_lines()
 
         tag_handle = open(self.tag_file)
 
