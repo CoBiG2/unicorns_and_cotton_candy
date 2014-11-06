@@ -219,7 +219,7 @@ class SNPs():
             locus = tag_fields[2]
 
             # Checking if current locus has snps
-            if locus in variable_loci:
+            if locus in variable_loci and data[locus] == []:
                 sequence_id_list = tag_fields[8].split(",")
                 data[locus].extend(sequence_id_list)
 
