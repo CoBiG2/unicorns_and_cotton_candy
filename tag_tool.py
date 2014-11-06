@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
-#  parser.py
+#  tag_tool.py
 #
 # Copyright 2014 CoBiG^2
 #
