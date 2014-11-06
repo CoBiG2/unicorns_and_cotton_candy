@@ -186,6 +186,13 @@ class SNPs():
             except KeyError:
                 self.snp_storage[locus] = [(locus, position, transition)]
 
+    def get_loci_list(self):
+        """ Returns a list with the index number of the loci containing snps """
+
+        return [k for k in self.snp_storage]
+
+
+
 #Loads data into array
 #db = NoName()
 #print(db.primary)
