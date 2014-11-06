@@ -154,14 +154,37 @@ class Tags(object):
 class SNPs():
     """
     Class that deals with snps and alleles files. In the future it could be
-    inherited by the Tags class to perform some operations that require both
-    kinds of files
+    inherited by or inherit the Tags class to perform some operations that
+    require both kinds of files
     """
 
     def __init__(self, snps_file):
 
         self.snps_file = snps_file
 
+        self.snp_storage = {}
+
+    def _parse(self):
+
+        file_handle = open(self.snps_file)
+
+        for line in file_handle:
+            fields = line.split("\t")
+
+            # Fields of interest
+            # Skips empty or badly structured strings
+            try:
+                locus = fields[2]
+                position = fields[3]
+                transition = (fields[6], fields[7])
+            except IndexError:
+                continue
+
+            # Adding to storage
+            try:
+                self.snp_storage[locus].append((locus, position, transition))
+            except KeyError:
+                self.snp_storage[locus] = [(locus, position, transition)]
 
 #Loads data into array
 #db = NoName()
