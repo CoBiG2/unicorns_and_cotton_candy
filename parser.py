@@ -94,8 +94,6 @@ class Tags(object):
         self.tag_file = tag_file
         self.line_size = self.__count_lines()
 
-        tag_handle = open(self.tag_file)
-
     def __count_lines(self):
 
         return float(sum(1 for line in open(self.tag_file)))
