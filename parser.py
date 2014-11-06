@@ -163,6 +163,7 @@ class SNPs():
         self.snps_file = snps_file
 
         self.snp_storage = {}
+        self._parse()
 
     def _parse(self):
 
