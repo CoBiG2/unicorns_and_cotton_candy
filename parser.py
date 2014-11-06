@@ -151,12 +151,16 @@ class Tags(object):
         tag_handle.close()
 
 
+class SNPs():
+    """
+    Class that deals with snps and alleles files. In the future it could be
+    inherited by the Tags class to perform some operations that require both
+    kinds of files
+    """
 
+    def __init__(self, snps_file):
 
-
-
-
-
+        self.snps_file = snps_file
 
 
 #Loads data into array
