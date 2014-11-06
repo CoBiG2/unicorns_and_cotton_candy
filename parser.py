@@ -239,7 +239,17 @@ class SNPs():
         plt.ylabel("Frequency")
         plt.savefig("Species_frequency.png")
 
+        # Generating table
+        output_handle = open("Species_frequency.csv", "w")
+        table_data = dict((str(x), 0) for x in range(1, 25))
 
+        for freq in taxa_frequency_list:
+            table_data[str(freq)] += 1
+
+        for x,y in table_data.items():
+            output_handle.write("%s; %s\n" % (x,y))
+
+        output_handle.close()
 
 #Loads data into array
 #db = NoName()
