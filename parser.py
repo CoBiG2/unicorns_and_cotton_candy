@@ -22,6 +22,7 @@
 #
 
 #import argparse
+import matplotlib.pyplot as plt
 
 #parser = argparse.ArgumentParser(description="Remote tool to getting zones or "
                                  #"links or something for rad sequence data "
@@ -205,7 +206,32 @@ class SNPs():
         containing the assembly of stacks for multiple species
         """
 
+        variable_loci = self.get_loci_list()
+        data = dict((x, []) for x in variable_loci)
 
+        tag_handle = open(tags_file)
+
+        # Populating data
+        for tag in tag_handle:
+            tag_fields = tag.strip().split("\t")
+            locus = tag_fields[2]
+
+            # Checking if current locus has snps
+            if locus in variable_loci:
+                sequence_id_list = tag_fields[8].split(",")
+                data[locus].extend(sequence_id_list)
+
+        # Transforming data into histogram format
+        # Getting boundaries of taxa frequency
+        taxa_frequency_list = [len(x) for x in list(data.values())]
+        boundaries = (min(taxa_frequency_list), max(taxa_frequency_list))
+
+        # Generating plot
+        plt.hist(taxa_frequency_list)
+        plt.title("Species frequency per variable loci")
+        plt.xlabel("Species number")
+        plt.ylabel("Frequency")
+        plt.savefig("Species_frequency.png")
 
 
 
