@@ -162,7 +162,11 @@ class SNPs():
 
         self.snps_file = snps_file
 
+        # Initializing attributes
         self.snp_storage = {}
+        self.snp_number = 0
+
+        # Parsing
         self._parse()
 
     def _parse(self):
@@ -171,6 +175,9 @@ class SNPs():
 
         for line in file_handle:
             fields = line.split("\t")
+
+            # Add to SNP counter
+            self.snp_number += 1
 
             # Fields of interest
             # Skips empty or badly structured strings
