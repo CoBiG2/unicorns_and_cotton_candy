@@ -166,6 +166,7 @@ class SNPs():
         self.snp_number = 0
 
         # Parsing
+        print("\rReading snps/allele file", end="")
         self._parse()
 
     def _parse(self):
@@ -212,6 +213,7 @@ class SNPs():
         tag_handle = open(tags_file)
 
         # Populating data
+        print("\rProcessing tags file", end="")
         for tag in tag_handle:
             tag_fields = tag.strip().split("\t")
             locus = tag_fields[2]
