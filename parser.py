@@ -169,6 +169,10 @@ class SNPs():
         print("\rReading snps/allele file", end="")
         self._parse()
 
+    def _count_lines(self):
+
+        return float(sum(1 for line in open(self.snps_file)))
+
     def _parse(self):
 
         file_handle = open(self.snps_file)
