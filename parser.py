@@ -23,6 +23,7 @@
 
 #import argparse
 import matplotlib.pyplot as plt
+from collections import OrderedDict
 
 #parser = argparse.ArgumentParser(description="Remote tool to getting zones or "
                                  #"links or something for rad sequence data "
@@ -224,13 +225,12 @@ class SNPs():
 
             # Checking if current locus has snps
             if locus in variable_loci and data[locus] == []:
-                sequence_id_list = tag_fields[8].split(",")
+                sequence_id_list = set([x.split("_")[0] for x in tag_fields[
+                                        8].split(",")])
                 data[locus].extend(sequence_id_list)
 
         # Transforming data into histogram format
-        # Getting boundaries of taxa frequency
-        taxa_frequency_list = [len(x) for x in list(data.values())]
-        boundaries = (min(taxa_frequency_list), max(taxa_frequency_list))
+        taxa_frequency_list = [len(x) for x in list(data.values()) if x != []]
 
         # Generating plot
         plt.hist(taxa_frequency_list)
@@ -241,13 +241,13 @@ class SNPs():
 
         # Generating table
         output_handle = open("Species_frequency.csv", "w")
-        table_data = dict((str(x), 0) for x in range(1, 25))
+        table_data = OrderedDict((str(x), 0) for x in range(1, 25))
 
         for freq in taxa_frequency_list:
             table_data[str(freq)] += 1
 
-        for x,y in table_data.items():
-            output_handle.write("%s; %s\n" % (x,y))
+        for x, y in table_data.items():
+            output_handle.write("%s; %s\n" % (x, y))
 
         output_handle.close()
 
