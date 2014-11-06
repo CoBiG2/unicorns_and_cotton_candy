@@ -199,6 +199,16 @@ class SNPs():
 
         return [k for k in self.snp_storage]
 
+    def get_snp_coverage(self, tags_file):
+        """
+        This will generate a table and histogram reporting the taxa coverage
+        for each variable loci.
+        :param: tags_file, string with the file name of the tags file
+        containing the assembly of stacks for multiple species
+        """
+
+
+
 
 
 #Loads data into array
