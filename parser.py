@@ -199,6 +199,18 @@ class SNPs():
             except KeyError:
                 self.snp_storage[locus] = [(locus, position, transition)]
 
+    def _hist(self, data, title="some_histogram", xlabel="xlabel",
+              ylabel="ylabel", name="figure_name.png"):
+        """
+        Simple wrapper to create histograms
+        """
+
+        plt.hist(data)
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.savefig(name)
+
     def get_loci_list(self):
         """ Returns a list with the index number of the loci containing snps """
 
@@ -233,11 +245,8 @@ class SNPs():
         taxa_frequency_list = [len(x) for x in list(data.values()) if x != []]
 
         # Generating plot
-        plt.hist(taxa_frequency_list)
-        plt.title("Species frequency per variable loci")
-        plt.xlabel("Species number")
-        plt.ylabel("Frequency")
-        plt.savefig("Species_frequency.png")
+        self._hist(taxa_frequency_list, "Species frequency per variable loci",
+                   "Species number", "Frequency", "Species_frequency.png")
 
         # Generating table
         output_handle = open("Species_frequency.csv", "w")
@@ -249,6 +258,31 @@ class SNPs():
         for x, y in table_data.items():
             output_handle.write("%s; %s\n" % (x, y))
 
+        output_handle.close()
+
+    def snp_statistics(self):
+        """
+        Generates a table with several summary statistics. As of now,
+        the table will contain:
+        - Number of SNPs
+        - Number of variable loci
+        - Histogram of the frequency of snps per locus
+        """
+
+        # Getting number of variable loci
+        variable_loci = len(self.snp_storage)
+
+        # Getting histogram data:
+        hist_data = [len(x) for x in self.snp_storage]
+
+        # Generating plot
+        self._hist(hist_data, "SNP distribution", "SNP number", "Frequency",
+                   "SNP_distibution.png")
+
+        # Generating table
+        output_handle = open("SNP_info.log", "w")
+        output_handle.write("Number of variable loci; Number of SNPs\n%s; "
+                            "%s\n" % (variable_loci, self.snp_number))
         output_handle.close()
 
 #Loads data into array
