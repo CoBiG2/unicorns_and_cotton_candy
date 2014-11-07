@@ -260,6 +260,19 @@ class SNPs():
 
         output_handle.close()
 
+    def export_variable_loci(self, tags_file, individual_tags_list):
+        """
+        This will export the variable loci found in the SNPs file,
+        and retrieve the corresponding consensus sequences from the
+        individual tags file.
+        :param tags_file: string with the file name of the assembled tags file
+        :param individual_tags_list: list with the file names of the
+        individual tags file containing the sequences to be retrieved
+        :return:
+        """
+
+
+
     def snp_statistics(self):
         """
         Generates a table with several summary statistics. As of now,
