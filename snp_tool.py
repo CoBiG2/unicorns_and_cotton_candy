@@ -28,9 +28,10 @@ parser = argparse.ArgumentParser(description="Tool for processing of stacks "
 
 parser.add_argument("-in", dest="snp_file", help="The input snps or allele "
                     "file")
-parser.add_argument("-s", dest="stats", choices=["1"], help="Generate "
-                    "descriptive stats. 1: Histogram with the species "
-                    "coverage for each variable loci")
+parser.add_argument("-s", dest="stats", nargs="*", choices=["1", "2"],
+                    help="Generate descriptive stats. 1: Histogram of species "
+                    "coverage per variable locus; 2: Histogram of number of "
+                    "SNPs per locus and general information on snps")
 parser.add_argument("-tags", dest="tags_file", help="Provide auxiliary tags "
                     "file. Required for some operations")
 parser.add_argument("-o", dest="output_file", help="Name for the output file")
