@@ -52,4 +52,7 @@ def main():
         if "1" in arg.stats:
             snp_obj.get_snp_coverage(arg.tags_file)
 
+        if "2" in arg.stats:
+            snp_obj.snp_statistics()
+
 main ()
