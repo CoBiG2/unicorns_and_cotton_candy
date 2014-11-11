@@ -33,6 +33,11 @@ parser.add_argument("-r", dest="restriction_enzyme", help="Digest the genome "
                     "only print the number of fragments expected from a "
                     "digestion. Provide the name(s) of the enzyme(s) "
                     "separated by spaces (e.g. SBFI PSTI)")
+parser.add_argument("--add-enzyme", dest="add_enzyme", nargs="*", help="Add "
+                    "new enzyme. For each enzyme, three fields must be "
+                    "entered: [enzyme_name enzyme_string cut_site]. For "
+                    "example to add SBFI this option should be used as "
+                    "follows: SBFI CCTGCAGG 6.")
 
 arg = parser.parse_args()
 
