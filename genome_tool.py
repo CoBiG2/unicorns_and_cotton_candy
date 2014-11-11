@@ -125,8 +125,8 @@ class Genome():
 
             for enzyme in args:
                 try:
-                    enzyme_string = self.enzyme_table[enzyme][0]
-                    cut_mismatch = self.enzyme_table[enzyme][1]
+                    enzyme_string = self.enzyme_table[enzyme.upper()][0]
+                    cut_mismatch = self.enzyme_table[enzyme.upper()][1]
 
                     # Find all instances of the restriction site substring in
                     # the sequence and adds the distance of the actual cut site
