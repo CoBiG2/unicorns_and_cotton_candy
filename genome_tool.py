@@ -53,6 +53,23 @@ def parser(file_string):
     return contig_storage
 
 
+class Genome():
+    """
+    A genome class that contains in its simplest form, a dictionary with the
+    contigs and sequences. I created this as a class so that several methods
+    that process/modify the genome dictionary can be easily added and
+    share/set common attributes
+    """
+
+    def __init__(self, dic_object):
+        """
+        Initialization of a Genome object only requires a dictionary for now
+        :param dic_object: Methods for Genome object will assume the
+        dictionary has some sort of sequence name as keys and sequence as values
+        """
+
+        self.genome_lib = dic_object
+
 
 def main():
     # Arguments
