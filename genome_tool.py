@@ -119,6 +119,7 @@ class Genome():
         """
 
         fragment_number = 0
+        restriction_site_number = 0
 
         for contig, sequence in self.genome_lib.items():
 
@@ -146,6 +147,9 @@ class Genome():
             # Once the restriction sites have been recorded for all enzymes,
             # get the number of fragments
             else:
+                # Update number of restriction sites
+                restriction_site_number += len(all_hits)
+
                 fragments = []
                 start = 0
 
@@ -162,7 +166,7 @@ class Genome():
                 # performed
                 fragment_number += len(fragments)
 
-        return fragment_number
+        return fragment_number, restriction_site_number
 
 
 def main():
