@@ -70,6 +70,31 @@ class Genome():
 
         self.genome_lib = dic_object
 
+    @staticmethod
+    def _set_enzyme_table(self, **kwargs):
+
+        self.enzyme_table = {"SBFI": ["CCTGCAGG", 6],
+                        "PSTI": ["CTGCAG", 5],
+                        "NSII": ["ATGCAT", 5],
+                        "NOTI": ["GCGGCCGC", 2],
+                        "EAEI": ["YGGCCR", 1],
+                        "EAGI": ["CGGCCG", 1],
+                        "ECORI": ["GAATTC", 1],
+                        "APOI": ["RAATTY", 1],
+                        "MFEI": ["CAATTG", 1],
+                        "BAMHI": ["GGATCC", 1],
+                        "BCLI": ["TGATCA", 1],
+                        "BGLII": ["AGATCT", 1],
+                        "BSTYI": ["RGATCY", 1],
+                        "BBVCI": ["CCTCAGC", 1],
+                        "SPHI": ["GCATGC", 5],
+                        "MSPI": ["GCGG", 1],
+                        "MLUCI": ["AATT", 0],
+                        "NLAIII": ["CATG", 4]}
+
+        for key, val in kwargs:
+            self.enzyme_table[key] = val
+
 
 def main():
     # Arguments
