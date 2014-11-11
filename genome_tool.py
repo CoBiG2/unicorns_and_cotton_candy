@@ -20,6 +20,19 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
+parser = argparse.ArgumentParser(description="Tool that performs miscellaneous "
+                                             "operations on genome files")
 
+parser.add_argument("-in", dest="genome_file", help="The input genome file in "
+                    "Fasta format")
+
+arg = parser.parse_args()
+
+
+def main():
+    # Arguments
+    genome_file = arg.genome_file
+
+main()
 
 __author__ = 'diogo'
