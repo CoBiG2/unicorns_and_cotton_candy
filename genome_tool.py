@@ -182,7 +182,9 @@ def main():
     if arg.restriction_enzyme:
         enzyme_list = arg.restriction_enzyme
 
-        fragments = my_genome.digest(enzyme_list)
+        fragments, sites = my_genome.digest(enzyme_list)
+        print("This genome contains %s restriction cutting sites, "
+              "which generates %s fragments" % (fragments, sites))
 
 
 main()
