@@ -28,10 +28,10 @@ parser = argparse.ArgumentParser(description="Tool that performs miscellaneous "
 
 parser.add_argument("-in", dest="genome_file", help="The input genome file in "
                     "Fasta format")
-parser.add_argument("-r", dest="restriction_enzyme", help="Digest the genome "
-                    "with one or more restriction enzymes. For now it will "
-                    "only print the number of fragments expected from a "
-                    "digestion. Provide the name(s) of the enzyme(s) "
+parser.add_argument("-r", dest="restriction_enzyme", nargs="*", help="Digest "
+                    "the genome with one or more restriction enzymes. For now "
+                    "it will only print the number of fragments expected from a"
+                    " digestion. Provide the name(s) of the enzyme(s) "
                     "separated by spaces (e.g. SBFI PSTI)")
 parser.add_argument("--add-enzyme", dest="add_enzyme", nargs="*", help="Add "
                     "new enzyme. For each enzyme, three fields must be "
