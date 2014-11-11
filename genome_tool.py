@@ -82,9 +82,9 @@ class Genome():
         dictionary has some sort of sequence name as keys and sequence as values
         """
 
+        self._set_enzyme_table()
         self.genome_lib = dic_object
 
-    @staticmethod
     def _set_enzyme_table(self, **kwargs):
 
         self.enzyme_table = {"SBFI": ["CCTGCAGG", 6],
@@ -113,7 +113,7 @@ class Genome():
         """
         This method simulates the results of digesting a genome with one or
         more restriction enzymes
-        :param args: A list containing the restriction enzyme names that will
+        :param enzyme_list: A list containing the restriction enzyme names that will
         digest the genome
         :return:
         """
