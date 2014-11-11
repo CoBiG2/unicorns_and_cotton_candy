@@ -20,6 +20,8 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
+import argparse
+
 parser = argparse.ArgumentParser(description="Tool that performs miscellaneous "
                                              "operations on genome files")
 
@@ -27,6 +29,29 @@ parser.add_argument("-in", dest="genome_file", help="The input genome file in "
                     "Fasta format")
 
 arg = parser.parse_args()
+
+
+def parser(file_string):
+    """
+    Simple fasta parser that returns a dictionary with contig name as key
+    and sequence as value
+    :param file_string: Fasta file name
+    """
+
+    file_handle = open(file_string)
+    contig_storage = {}
+
+    for line in file_handle:
+        if line.startswith(">"):
+            contig_name = line[1:].strip()
+            contig_storage[contig_name] = ""
+
+        else:
+            sequence = line.strip()
+            contig_storage[contig_name] += sequence
+
+    return contig_storage
+
 
 
 def main():
