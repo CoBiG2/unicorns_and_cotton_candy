@@ -115,9 +115,6 @@ class Genome():
 
         fragment_number = 0
 
-        # Global definition of storage for restriction cut sites
-        all_hits = []
-
         for contig, sequence in self.genome_lib.items():
 
             # Restarting all_hits for each sequence
@@ -133,8 +130,8 @@ class Genome():
                     all_hits.extend([(x.start() + cut_mismatch) for x in
                                     re.finditer(enzyme_string, sequence)])
 
-                # Handle common exception of providing a non-existent restriction
-                #  enzyme name
+                # Handle common exception of providing a non-existent
+                # restriction enzyme name
                 except KeyError:
                     raise SystemError("The enzyme %s is not present on the "
                                       "restriction enzyme table. Use "
