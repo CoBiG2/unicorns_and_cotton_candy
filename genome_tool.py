@@ -109,7 +109,7 @@ class Genome():
         for key, val in kwargs:
             self.enzyme_table[key] = val
 
-    def digest(self, *args):
+    def digest(self, enzyme_list):
         """
         This method simulates the results of digesting a genome with one or
         more restriction enzymes
@@ -125,7 +125,7 @@ class Genome():
             # Restarting all_hits for each sequence
             all_hits = []
 
-            for enzyme in args:
+            for enzyme in enzyme_list:
                 try:
                     enzyme_string = self.enzyme_table[enzyme.upper()][0]
                     cut_mismatch = self.enzyme_table[enzyme.upper()][1]
@@ -168,6 +168,18 @@ class Genome():
 def main():
     # Arguments
     genome_file = arg.genome_file
+
+    # Parsing genome
+    genome_dic = parser(genome_file)
+
+    # Initializing genome object
+    my_genome = Genome(genome_dic)
+
+    if arg.restriction_enzyme:
+        enzyme_list = arg.restriction_enzyme
+
+        fragments = my_genome.digest(enzyme_list)
+
 
 main()
 
