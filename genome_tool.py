@@ -20,6 +20,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
+import re
 import argparse
 
 parser = argparse.ArgumentParser(description="Tool that performs miscellaneous "
@@ -48,7 +49,10 @@ def parser(file_string):
 
         else:
             sequence = line.strip()
-            contig_storage[contig_name] += sequence
+            try:
+                contig_storage[contig_name] += sequence
+            except KeyError:
+                raise SystemError("Possibly badly formatted fasta file?")
 
     return contig_storage
 
@@ -94,6 +98,64 @@ class Genome():
 
         for key, val in kwargs:
             self.enzyme_table[key] = val
+
+    def digest(self, *args):
+        """
+        This method simulates the results of digesting a genome with one or
+        more restriction enzymes
+        :param args: A list containing the restriction enzyme names that will
+        digest the genome
+        :return:
+        """
+
+        fragment_number = 0
+
+        # Global definition of storage for restriction cut sites
+        all_hits = []
+
+        for contig, sequence in self.genome_lib.items():
+
+            # Restarting all_hits for each sequence
+            all_hits = []
+
+            for enzyme in args:
+                try:
+                    enzyme_string = self.enzyme_table[enzyme][0]
+                    cut_mismatch = self.enzyme_table[enzyme][1]
+
+                    # Find all instances of the restriction site substring in
+                    # the sequence and adds the distance of the actual cut site
+                    all_hits.extend([(x.start() + cut_mismatch) for x in
+                                    re.finditer(enzyme_string, sequence)])
+
+                # Handle common exception of providing a non-existent restriction
+                #  enzyme name
+                except KeyError:
+                    raise SystemError("The enzyme %s is not present on the "
+                                      "restriction enzyme table. Use "
+                                      "_set_enzyme_table to add new enzymes." %
+                                      enzyme)
+
+            # Once the restriction sites have been recorded for all enzymes,
+            # get the number of fragments
+            else:
+                fragments = []
+                start = 0
+
+                for hit in all_hits:
+                    fragments.append(sequence[start:hit])
+
+                    #Updating start for next cut site
+                    start = hit + 1
+                else:
+                    fragments.append(sequence[start:])
+
+                # Right now I only want the number of fragments but the
+                # method has been written so that further operations may be
+                # performed
+                fragment_number += len(fragments)
+
+        return fragment_number
 
 
 def main():
