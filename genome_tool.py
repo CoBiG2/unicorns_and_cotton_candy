@@ -151,11 +151,13 @@ class Genome():
                 restriction_site_number += len(all_hits)
 
                 fragments = []
+                rad_tags = []
                 start = 0
 
                 for hit in all_hits:
                     fragments.append(sequence[start:hit])
 
+                    rad_tags.append(sequence[hit:hit + 75])
                     #Updating start for next cut site
                     start = hit + 1
                 else:
@@ -166,7 +168,7 @@ class Genome():
                 # performed
                 fragment_number += len(fragments)
 
-        return fragment_number, restriction_site_number
+        return fragment_number, restriction_site_number, rad_tags
 
 
 def main():
