@@ -152,6 +152,53 @@ class Tags(object):
         output_handle.close()
         tag_handle.close()
 
+    def coverage(self, report_threshold=30):
+        """
+        This will retrieve information about the coverage of the RAD tags
+        :param report_threshold: This option can be used to save stacks with
+        a coverage above a certain threshold. The generated file will have a
+        line for each over represented locus, the coverage number and the
+        consensus sequence
+        """
+
+        locus = 0
+
+        # Coverage data will be appended to this variable in tuple format (
+        # locus_number, coverage)
+        coverage_data = {}
+
+        tag_handle = open(self.tag_file)
+        output_handle = open("high_coverage.csv", "w")
+
+        for line in tag_handle:
+            fields = line.split("\t")
+
+            if fields[6] == "consensus":
+                try:
+                    if coverage_data[locus] > report_threshold:
+                        output_handle.write("%s; %s; %s\n" % (locus,
+                                            coverage_data[locus], sequence))
+                except KeyError:
+                    continue
+
+                locus += 1
+                coverage_data[locus] = 0
+                sequence = fields[9]
+                # Skip model line
+                next(tag_handle)
+
+            else:
+                coverage_data[locus] *= 1
+
+        # Generating plot
+        plot_data = [x for x in coverage_data.values()]
+
+        plt.hist(plot_data)
+        plt.title("Coverage distribution")
+        plt.xlabel("Coverage")
+        plt.ylabel("Frequency")
+        plt.savefig("coverage_distribution.png")
+
 
 class SNPs():
     """
