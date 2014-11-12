@@ -88,6 +88,13 @@ class Genome():
         self.genome_lib = dic_object
 
     def set_enzyme_table(self, **kwargs):
+        """
+        This will set the variable enzyme_table. If no argument is provided,
+        the enzyme table will be set as below.
+        :param kwargs: Argument for providing additional enzymes. The format
+        must be {"enzyme_name": ["enzyme_string", "cutting_site"]} as can be
+        seen below
+        """
 
         self.enzyme_table = {"SBFI": ["CCTGCAGG", 6],
                         "PSTI": ["CTGCAG", 5],
