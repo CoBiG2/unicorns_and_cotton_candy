@@ -175,11 +175,11 @@ class Tags(object):
 
             if fields[6] == "consensus":
                 try:
-                    if coverage_data[locus] > report_threshold:
+                    if coverage_data[locus] > int(report_threshold):
                         output_handle.write("%s; %s; %s\n" % (locus,
                                             coverage_data[locus], sequence))
                 except KeyError:
-                    continue
+                    pass
 
                 locus += 1
                 coverage_data[locus] = 0
@@ -188,10 +188,10 @@ class Tags(object):
                 next(tag_handle)
 
             else:
-                coverage_data[locus] *= 1
+                coverage_data[locus] += 1
 
         # Generating plot
-        plot_data = [x for x in coverage_data.values()]
+        plot_data = [x for x in list(coverage_data.values())]
 
         plt.hist(plot_data)
         plt.title("Coverage distribution")
