@@ -122,8 +122,8 @@ class Genome():
         """
         This method simulates the results of digesting a genome with one or
         more restriction enzymes
-        :param enzyme_list: A list containing the restriction enzyme names that will
-        digest the genome
+        :param enzyme_list: A list containing the restriction enzyme names that
+        will digest the genome
         :return:
         """
 
