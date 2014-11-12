@@ -82,10 +82,10 @@ class Genome():
         dictionary has some sort of sequence name as keys and sequence as values
         """
 
-        self._set_enzyme_table()
+        self.set_enzyme_table()
         self.genome_lib = dic_object
 
-    def _set_enzyme_table(self, **kwargs):
+    def set_enzyme_table(self, **kwargs):
 
         self.enzyme_table = {"SBFI": ["CCTGCAGG", 6],
                         "PSTI": ["CTGCAG", 5],
