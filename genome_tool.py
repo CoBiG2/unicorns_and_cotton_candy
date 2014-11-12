@@ -82,6 +82,8 @@ class Genome():
         dictionary has some sort of sequence name as keys and sequence as values
         """
 
+        self.enzyme_table = None
+
         self.set_enzyme_table()
         self.genome_lib = dic_object
 
