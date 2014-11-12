@@ -31,6 +31,9 @@ parser.add_argument("-in", dest="tag_file", help="The input tags file")
 parser.add_argument("--export", dest="export", choices=["fasta", "tsv"],
                     help="Option to export some values of the tsv file into "
                     "new file")
+parser.add_argument("--coverage", dest="coverage", help="Generate a plot with"
+                    " the coverage distribution for each RAD tag. Provide a "
+                    "threshold value above which tags should be reported")
 parser.add_argument("-o", dest="output_file", help="Name for the output file")
 
 arg = parser.parse_args()
@@ -47,5 +50,8 @@ def main():
 
         if "fasta" in arg.export:
             tag_object.export_consensus(output_filename)
+
+    if arg.coverage:
+        tag_object.coverage(arg.coverage)
 
 main()
