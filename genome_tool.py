@@ -119,6 +119,7 @@ class Genome():
         """
 
         fragment_number = 0
+        rad_tag_number = 0
         restriction_site_number = 0
 
         for contig, sequence in self.genome_lib.items():
@@ -167,8 +168,9 @@ class Genome():
                 # method has been written so that further operations may be
                 # performed
                 fragment_number += len(fragments)
+                rad_tag_number += len(rad_tags)
 
-        return fragment_number, restriction_site_number, rad_tags
+        return fragment_number, restriction_site_number, rad_tag_number
 
 
 def main():
@@ -184,9 +186,9 @@ def main():
     if arg.restriction_enzyme:
         enzyme_list = arg.restriction_enzyme
 
-        fragments, sites = my_genome.digest(enzyme_list)
+        fragments, sites, rad_tags = my_genome.digest(enzyme_list)
         print("This genome contains %s restriction cutting sites, "
-              "which generates %s fragments" % (fragments, sites))
+              "which generates %s rad tags" % (fragments, rad_tags))
 
 
 main()
