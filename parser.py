@@ -226,9 +226,10 @@ class SNPs():
         containing the assembly of stacks for multiple species
         """
 
-        variable_loci = self.get_loci_list()
-        data = dict((x, []) for x in variable_loci)
+        # Get the unique loci only
+        variable_loci = set(self.get_loci_list())
 
+        data = []
         tag_handle = open(tags_file)
 
         # Populating data
@@ -238,23 +239,23 @@ class SNPs():
             locus = tag_fields[2]
 
             # Checking if current locus has snps
-            if locus in variable_loci and data[locus] == []:
+            if locus in variable_loci:
                 sequence_id_list = set([x.split("_")[0] for x in tag_fields[
                                         8].split(",")])
-                data[locus].extend(sequence_id_list)
 
-        # Transforming data into histogram format
-        taxa_frequency_list = [len(x) for x in list(data.values()) if x != []]
+                # If list is not empty
+                if sequence_id_list:
+                    data.append(len(sequence_id_list))
 
         # Generating plot
-        self._hist(taxa_frequency_list, "Species frequency per variable loci",
+        self._hist(data, "Species frequency per variable loci",
                    "Species number", "Frequency", "Species_frequency.png")
 
         # Generating table
         output_handle = open("Species_frequency.csv", "w")
         table_data = OrderedDict((str(x), 0) for x in range(1, 25))
 
-        for freq in taxa_frequency_list:
+        for freq in data:
             table_data[str(freq)] += 1
 
         for x, y in table_data.items():
