@@ -188,7 +188,7 @@ def main():
 
         fragments, sites, rad_tags = my_genome.digest(enzyme_list)
         print("This genome contains %s restriction cutting sites, "
-              "which generates %s rad tags" % (fragments, rad_tags))
+              "which generates %s rad tags" % (sites, rad_tags))
 
 
 main()
