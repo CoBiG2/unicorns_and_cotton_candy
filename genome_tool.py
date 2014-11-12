@@ -193,6 +193,27 @@ def main():
     my_genome = Genome(genome_dic)
 
     if arg.restriction_enzyme:
+
+        # Adding new enzymes
+        if arg.add_enzyme:
+
+            new_enzymes = arg.add_enzyme
+            for i in range(0, len(new_enzymes), 3):
+                try:
+                    enzyme_name = new_enzymes[i]
+                    enzyme_string = new_enzymes[i + 1]
+                    try:
+                        enzyme_cut = int(new_enzymes[i + 2])
+                    except ValueError:
+                        raise SystemError("Cut site must be an integer. %s "
+                                          "was found instead"
+                                          % arg.new_enzymes[i + 2])
+                    my_genome.set_enzyme_table(enzyme_name=[enzyme_string,
+                                                            enzyme_cut])
+                except KeyError:
+                    raise SystemError("Badly formatted enzyme in --add-enzyme "
+                                      "option")
+
         enzyme_list = arg.restriction_enzyme
 
         fragments, sites, rad_tags = my_genome.digest(enzyme_list)
