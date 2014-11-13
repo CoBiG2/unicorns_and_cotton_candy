@@ -214,9 +214,10 @@ class Tags(object):
         # TODO: Current issue - if there is great variation in coverage values,
         # the generated histogram will have an extremely skewed distribution
         # and will not be very informative.
-        plot_data = [x[0] for x in list(coverage_data.values())]
+        plot_data = [x[0] for x in list(coverage_data.values())
+                     if x[0] < 2 * stdev_coverage]
 
-        plt.hist(plot_data)
+        plt.boxplot(plot_data)
         plt.title("Coverage distribution")
         plt.xlabel("Coverage")
         plt.ylabel("Frequency")
