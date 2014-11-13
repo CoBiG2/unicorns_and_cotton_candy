@@ -174,12 +174,6 @@ class Tags(object):
             fields = line.split("\t")
 
             if fields[6] == "consensus":
-                try:
-                    if coverage_data[locus] > int(report_threshold):
-                        output_handle.write("%s; %s; %s\n" % (locus,
-                                            coverage_data[locus], sequence))
-                except KeyError:
-                    pass
 
                 locus += 1
                 coverage_data[locus] = 0
