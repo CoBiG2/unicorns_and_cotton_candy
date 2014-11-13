@@ -193,7 +193,7 @@ class Tags(object):
         output_handle.close()
 
         # Generating plot
-        plot_data = [x for x in list(coverage_data.values())]
+        plot_data = [x[0] for x in list(coverage_data.values())]
 
         plt.hist(plot_data)
         plt.title("Coverage distribution")
