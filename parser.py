@@ -24,6 +24,7 @@
 #import argparse
 import matplotlib.pyplot as plt
 from collections import OrderedDict
+import numpy as np
 
 #parser = argparse.ArgumentParser(description="Remote tool to getting zones or "
                                  #"links or something for rad sequence data "
@@ -152,13 +153,9 @@ class Tags(object):
         output_handle.close()
         tag_handle.close()
 
-    def coverage(self, report_threshold=30):
+    def coverage(self):
         """
         This will retrieve information about the coverage of the RAD tags
-        :param report_threshold: This option can be used to save stacks with
-        a coverage above a certain threshold. The generated file will have a
-        line for each over represented locus, the coverage number and the
-        consensus sequence
         """
 
         locus = 0
@@ -176,13 +173,24 @@ class Tags(object):
             if fields[6] == "consensus":
 
                 locus += 1
-                coverage_data[locus] = 0
                 sequence = fields[9]
+                coverage_data[locus] = [0, sequence]
                 # Skip model line
                 next(tag_handle)
 
             else:
-                coverage_data[locus] += 1
+                coverage_data[locus][0] += 1
+
+        # standard deviation of coverage
+        coverage_values = [x[0] for x in coverage_data.values()]
+        stdev_coverage = int(np.std(coverage_values))
+
+        for locus, vals in coverage_data.items():
+
+            if vals[0] > (2 * stdev_coverage):
+                output_handle.write("%s; %s; %s\n" % (locus, vals[0], vals[1]))
+
+        output_handle.close()
 
         # Generating plot
         plot_data = [x for x in list(coverage_data.values())]
