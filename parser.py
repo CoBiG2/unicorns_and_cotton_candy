@@ -159,13 +159,17 @@ class Tags(object):
         """
 
         locus = 0
+        reads = 0
 
         # Coverage data will be appended to this variable in tuple format (
         # locus_number, coverage)
         coverage_data = {}
 
         tag_handle = open(self.tag_file)
+        # Output file listing loci with abnormally high coverage
         output_handle = open("high_coverage.csv", "w")
+        # Output file with general information on coverage statistics
+        log_handle = open("high_coverage.log", "w")
 
         for line in tag_handle:
             fields = line.split("\t")
@@ -180,19 +184,36 @@ class Tags(object):
 
             else:
                 coverage_data[locus][0] += 1
+                reads += 1
 
-        # standard deviation of coverage
+        # mean and standard deviation of coverage
         coverage_values = [x[0] for x in coverage_data.values()]
+        mean_coverage = int(np.mean(coverage_values))
         stdev_coverage = int(np.std(coverage_values))
+
+        # Counter for bad loci in terms of coverage
+        bad_loci = 0
 
         for locus, vals in coverage_data.items():
 
             if vals[0] > (2 * stdev_coverage):
                 output_handle.write("%s; %s; %s\n" % (locus, vals[0], vals[1]))
+                bad_loci += 1
 
         output_handle.close()
 
+        log_handle.write("%s loci analyzed\n%s reads analyzed\n\nMean "
+                         "coverage per loci: %s\nStandard deviation: %s\n\n "
+                         "Number of loci above 2STD: %s\n" %
+                         (len(coverage_values), reads, mean_coverage,
+                          stdev_coverage, bad_loci))
+
+        log_handle.close()
+
         # Generating plot
+        # TODO: Current issue - if there is great variation in coverage values,
+        # the generated histogram will have an extremely skewed distribution
+        # and will not be very informative.
         plot_data = [x[0] for x in list(coverage_data.values())]
 
         plt.hist(plot_data)
