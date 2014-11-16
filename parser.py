@@ -269,11 +269,22 @@ class MultiTags():
         plots the overall coverage
         """
 
-        coverage_storage = {}
+        coverage_storage = []
 
         for tag_file in self.tags_list:
 
-            mean_coverage = tag_file.coverage(internal=True)
+            coverage_values = tag_file.coverage(internal=True)
+            coverage_storage.append((coverage_values, tag_file.name))
+
+        # Generate whisker plot
+        data = [x[0] for x in coverage_storage]
+        xvals = [x[1] for x in coverage_storage]
+        plt.boxplot(data)
+
+        # Setting x-axys values
+        plt.xticks(data, xvals)
+
+        plt.savefig("Mean_coverage.png")
 
 
 class SNPs():
