@@ -27,7 +27,8 @@ import parser as ps
 parser = argparse.ArgumentParser(description="Tool for processing of stacks "
                                              "tag files")
 
-parser.add_argument("-in", dest="tag_file", help="The input tags file")
+parser.add_argument("-in", dest="tag_file", nargs="*", help="The input tags "
+                    "file")
 parser.add_argument("--export", dest="export", choices=["fasta", "tsv"],
                     help="Option to export some values of the tsv file into "
                     "new file")
@@ -41,7 +42,11 @@ arg = parser.parse_args()
 
 def main():
     # Arguments
-    tag_file = arg.tag_file
+    if len(arg.tag_file) == 1:
+        tag_file = arg.tag_file[0]
+    else:
+        tag_file = arg.tag_file
+
     output_filename = arg.output_file
 
     tag_object = ps.Tags(tag_file)
