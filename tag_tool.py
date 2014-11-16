@@ -43,13 +43,12 @@ arg = parser.parse_args()
 def main():
     # Arguments
     if len(arg.tag_file) == 1:
-        tag_file = arg.tag_file[0]
+        tag_object = ps.Tags(arg.tag_file[0])
     else:
-        tag_file = arg.tag_file
+        tag_object = ps.MultiTags(arg.tag_file)
 
     output_filename = arg.output_file
 
-    tag_object = ps.Tags(tag_file)
 
     if arg.export:
 
