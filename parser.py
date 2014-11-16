@@ -153,9 +153,11 @@ class Tags(object):
         output_handle.close()
         tag_handle.close()
 
-    def coverage(self):
+    def coverage(self, internal=False):
         """
-        This will retrieve information about the coverage of the RAD tags
+        This will retrieve information about the coverage of the RAD tags.
+        Set the internal argument to True if the mean and stdev coverage only
+        to be returned. If False, it will produce plots and tables.
         """
 
         locus = 0
@@ -166,10 +168,6 @@ class Tags(object):
         coverage_data = {}
 
         tag_handle = open(self.tag_file)
-        # Output file listing loci with abnormally high coverage
-        output_handle = open("high_coverage.csv", "w")
-        # Output file with general information on coverage statistics
-        log_handle = open("high_coverage.log", "w")
 
         for line in tag_handle:
             fields = line.split("\t")
@@ -188,46 +186,59 @@ class Tags(object):
 
         # mean and standard deviation of coverage
         coverage_values = [x[0] for x in coverage_data.values()]
-        mean_coverage = int(np.mean(coverage_values))
-        stdev_coverage = int(np.std(coverage_values))
 
-        # Counter for bad loci in terms of coverage
-        bad_loci = 0
+        if internal is True:
 
-        for locus, vals in coverage_data.items():
+            return coverage_values
 
-            if vals[0] > (2 * stdev_coverage):
-                output_handle.write("%s; %s; %s\n" % (locus, vals[0], vals[1]))
-                bad_loci += 1
+        if internal is False:
 
-        output_handle.close()
+            mean_coverage = int(np.mean(coverage_values))
+            stdev_coverage = int(np.std(coverage_values))
 
-        log_handle.write("%s loci analyzed\n%s reads analyzed\n\nMean "
-                         "coverage per loci: %s\nStandard deviation: %s\n\n "
-                         "Number of loci above 2STD: %s\n" %
-                         (len(coverage_values), reads, mean_coverage,
-                          stdev_coverage, bad_loci))
+            # Output file listing loci with abnormally high coverage
+            output_handle = open("high_coverage.csv", "w")
+            # Output file with general information on coverage statistics
+            log_handle = open("high_coverage.log", "w")
 
-        log_handle.close()
+            # Counter for bad loci in terms of coverage
+            bad_loci = 0
 
-        # Generating plot
-        # TODO: Current issue - if there is great variation in coverage values,
-        # the generated histogram will have an extremely skewed distribution
-        # and will not be very informative.
-        plot_data = [x[0] for x in list(coverage_data.values())
-                     if x[0] < 2 * stdev_coverage]
+            for locus, vals in coverage_data.items():
 
-        plt.boxplot(plot_data)
-        plt.title("Coverage distribution")
-        plt.xlabel("Coverage")
-        plt.ylabel("Frequency")
-        plt.savefig("coverage_distribution.png")
+                if vals[0] > (2 * stdev_coverage):
+                    output_handle.write("%s; %s; %s\n" % (locus, vals[0],
+                                                          vals[1]))
+                    bad_loci += 1
+
+            output_handle.close()
+
+            log_handle.write("%s loci analyzed\n%s reads analyzed\n\nMean "
+                             "coverage per loci: %s\nStandard deviation: %s\n\n"
+                             " Number of loci above 2STD: %s\n" %
+                             (len(coverage_values), reads, mean_coverage,
+                              stdev_coverage, bad_loci))
+
+            log_handle.close()
+
+            # Generating plot
+            # TODO: Current issue - if there is great variation in coverage
+            # values, the generated histogram will have an extremely skewed
+            # distribution and will not be very informative.
+            plot_data = [x[0] for x in list(coverage_data.values())
+                         if x[0] < 2 * stdev_coverage]
+
+            plt.boxplot(plot_data)
+            plt.title("Coverage distribution")
+            plt.xlabel("Coverage")
+            plt.ylabel("Frequency")
+            plt.savefig("coverage_distribution.png")
 
 
 class MultiTags():
     """
     Class for dealing with multiple Tags file. Creating an exclusive class
-    for multiple tags file instead of using the Tags class, produces a more
+    for multiple tags file instead of modifying the Tags class, produces a more
     modular behavior that will be easier to extend in the future. Each tag
     file can still have access to each the Tag methods, but the methods in
     the MultiTags class will provide additional features when dealing with
@@ -240,6 +251,16 @@ class MultiTags():
     def __init__(self, tag_files):
 
         self.tags_list = tag_files
+
+    def mean_coverage(self):
+        """
+        Retrieves the mean tag coverage for each sample with tag files and
+        plots the overall coverage
+        """
+
+        for tag_file in self.tags_list:
+
+            mean_coverage = tag_file
 
 class SNPs():
     """
