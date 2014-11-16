@@ -233,6 +233,10 @@ class MultiTags():
     the MultiTags class will provide additional features when dealing with
     multiple files
     """
+
+    #TODO: Generate descriptive plots for (1) number o loci, (2) number of
+    # alleles, (3) Number of loci with alleles (4) coverage
+
     def __init__(self, tag_files):
 
         self.tags_list = tag_files
