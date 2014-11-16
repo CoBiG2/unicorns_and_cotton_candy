@@ -99,9 +99,19 @@ class Tags(object):
         self.tag_file = tag_file
         self.line_size = self.__count_lines()
 
+        # Set name of tags file
+        self.name = tag_file.split(".")[0]
+
     def __count_lines(self):
 
         return float(sum(1 for line in open(self.tag_file)))
+
+    def set_tag_name(self, s):
+        """
+        Updates the name of the tags file
+        """
+
+        self.name = s
 
     def export_column(self, file_name, *args, **kwargs):
         """
@@ -250,7 +260,8 @@ class MultiTags():
 
     def __init__(self, tag_files):
 
-        self.tags_list = tag_files
+        # Creates list of Tags objects
+        self.tags_list = [Tags(x) for x in tag_files]
 
     def mean_coverage(self):
         """
@@ -258,9 +269,12 @@ class MultiTags():
         plots the overall coverage
         """
 
+        coverage_storage = {}
+
         for tag_file in self.tags_list:
 
-            mean_coverage = tag_file
+            mean_coverage = tag_file.coverage(internal=True)
+
 
 class SNPs():
     """
