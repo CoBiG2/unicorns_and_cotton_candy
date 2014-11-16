@@ -263,7 +263,7 @@ class MultiTags():
         # Creates list of Tags objects
         self.tags_list = [Tags(x) for x in tag_files]
 
-    def mean_coverage(self):
+    def coverage(self):
         """
         Retrieves the mean tag coverage for each sample with tag files and
         plots the overall coverage
