@@ -282,7 +282,7 @@ class MultiTags():
         plt.boxplot(data)
 
         # Setting x-axys values
-        plt.xticks(data, xvals)
+        plt.xticks(range(1, len(data) + 1), xvals)
 
         plt.savefig("Mean_coverage.png")
 

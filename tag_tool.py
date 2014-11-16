@@ -49,7 +49,6 @@ def main():
 
     output_filename = arg.output_file
 
-
     if arg.export:
 
         if "fasta" in arg.export:
