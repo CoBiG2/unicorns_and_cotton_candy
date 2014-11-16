@@ -224,6 +224,19 @@ class Tags(object):
         plt.savefig("coverage_distribution.png")
 
 
+class MultiTags():
+    """
+    Class for dealing with multiple Tags file. Creating an exclusive class
+    for multiple tags file instead of using the Tags class, produces a more
+    modular behavior that will be easier to extend in the future. Each tag
+    file can still have access to each the Tag methods, but the methods in
+    the MultiTags class will provide additional features when dealing with
+    multiple files
+    """
+    def __init__(self, tag_files):
+
+        self.tags_list = tag_files
+
 class SNPs():
     """
     Class that deals with snps and alleles files. In the future it could be
