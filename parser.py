@@ -263,26 +263,40 @@ class MultiTags():
 
     def coverage(self):
         """
-        Retrieves the mean tag coverage for each sample with tag files and
-        plots the overall coverage
+        Retrieves several coverage related information from the tags file,
+        such as the coverage per se and the number of loci and plots this
+        information in individual graphs
         """
 
-        data = []
+        coverage_data = []
+        number_loci_data = []
         xvals = []
 
         for tag_file in self.tags_list:
 
             coverage_values = tag_file.coverage(internal=True)
-            data.append(coverage_values)
+            # Updating coverage data
+            coverage_data.append(coverage_values)
             xvals.append(tag_file.name)
+            # Updating number of loci data
+            number_loci_data.append(len(coverage_values))
 
-        # Generate whisker plot
-        plt.boxplot(data)
-
+        # Generate plots
+        # The coverage boxplot
+        ####
+        plt.figure(1)
+        plt.boxplot(coverage_data)
         # Setting x-axys values
-        plt.xticks(range(1, len(data) + 1), xvals)
-
+        plt.xticks(range(1, len(coverage_data) + 1), xvals)
         plt.savefig("Mean_coverage.png")
+
+        # The number of loci bar plot
+        ####
+        plt.figure(2)
+        plt.bar(number_loci_data)
+        # Setting x-axys values
+        plt.xticks(range(1, len(coverage_data) + 1), xvals)
+        plt.savefig("Number_loci.png")
 
 
 class SNPs():
