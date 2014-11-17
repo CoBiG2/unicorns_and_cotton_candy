@@ -50,9 +50,6 @@ import numpy as np
 #else:
 #    tag_files = glob.glob(path_tags + "/*.tags.tsv")
 
-#TODO: Get the average coverage for each tag
-
-
 class Rad(object):
     """
     As it is, creating an object for each line in a tags file consumes an
