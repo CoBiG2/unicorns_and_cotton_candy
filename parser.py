@@ -298,7 +298,7 @@ class MultiTags():
         # The number of loci bar plot
         ####
         plt.figure(2)
-        plt.bar(number_loci_data)
+        plt.bar(np.arange(len(number_loci_data)), number_loci_data)
         # Setting x-axys values
         plt.xticks(range(1, len(coverage_data) + 1), xvals)
         plt.savefig("Number_loci.png")
