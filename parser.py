@@ -50,6 +50,7 @@ import numpy as np
 #else:
 #    tag_files = glob.glob(path_tags + "/*.tags.tsv")
 
+
 class Rad(object):
     """
     As it is, creating an object for each line in a tags file consumes an
@@ -266,16 +267,16 @@ class MultiTags():
         plots the overall coverage
         """
 
-        coverage_storage = []
+        data = []
+        xvals = []
 
         for tag_file in self.tags_list:
 
             coverage_values = tag_file.coverage(internal=True)
-            coverage_storage.append((coverage_values, tag_file.name))
+            data.append(coverage_values)
+            xvals.append(tag_file.name)
 
         # Generate whisker plot
-        data = [x[0] for x in coverage_storage]
-        xvals = [x[1] for x in coverage_storage]
         plt.boxplot(data)
 
         # Setting x-axys values
