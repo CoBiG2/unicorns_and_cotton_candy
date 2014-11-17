@@ -22,13 +22,14 @@
 #
 
 #import argparse
-import matplotlib.pyplot as plt
 import matplotlib
 from collections import OrderedDict
 import numpy as np
 
 # Force matplotlib to not use any Xwindows backend.
 matplotlib.use('Agg')
+
+import matplotlib.pyplot as plt
 
 #parser = argparse.ArgumentParser(description="Remote tool to getting zones or "
                                  #"links or something for rad sequence data "
