@@ -18,7 +18,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
-#Usage: python3 freq_plotter freq_file.txt
+# Usage: python3 freq_plotter freq_file.txt
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -27,12 +27,12 @@ from collections import OrderedDict
 
 
 def parser(filename):
-    '''Parses the frequencies file.'''
-    infile = open(argv[1],"r")
+    """Parse the frequencies file. Returns an OrderedDict."""
+    infile = open(argv[1], "r")
 
     d = OrderedDict()
     for lines in infile:
-        lines=lines.strip()
+        lines = lines.strip()
         if lines != "0":
             lines = str(int(int(lines)/2))
         if lines in d:
@@ -46,7 +46,7 @@ def parser(filename):
 
 
 def freq_plotter(d):
-    '''Plots the frequencies of the SNPs per missing individuals'''
+    """Plot the frequencies of the SNPs per missing individuals."""
     n_groups = len(d)
     groups = list(d.keys())
 
@@ -70,7 +70,7 @@ def freq_plotter(d):
 
 
 def comul_plotter(d):
-    '''Plots the cumulative frequencies of the SNPs per missing individuals'''
+    """Plot the cumulative frequencies of the SNPs per missing individuals."""
     n_groups = len(d)
     groups = list(d.keys())
     SNPs = np.cumsum(np.array(list(d.values())))
