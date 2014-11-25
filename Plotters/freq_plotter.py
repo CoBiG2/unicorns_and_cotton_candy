@@ -98,5 +98,7 @@ if __name__ == "__main__":
     d = parser(argv[1])
     if argv[2] == "c":
         comul_plotter(d)
-    else:
+    elif argv[2] == "f":
         freq_plotter(d)
+    else:
+        print("Error, please specify the plot type (\"c\" or \"f\")")
