@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#  freq_ploter.py
+#  freq_plotter.py
 #
 # Copyright 2014 CoBiG^2 <f.pinamartins@gmail.com>
 #
@@ -18,7 +18,8 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
-# Usage: python3 freq_plotter freq_file.txt
+# Usage: python3 freq_plotter freq_file.txt graph_type
+# graph_type can be either "c" for cumulative graph or "f" for frequency graph.
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -89,9 +90,13 @@ def comul_plotter(d):
     plt.legend()
 
     plt.tight_layout()
+
     plt.show()
 
 
 if __name__ == "__main__":
     d = parser(argv[1])
-    comul_plotter(d)
+    if argv[2] == "c":
+        comul_plotter(d)
+    else:
+        freq_plotter(d)

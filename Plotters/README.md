@@ -9,8 +9,7 @@ SNP frequency plotter. Requires Python 3, matplotlib and numpy.
 Usage:
 
 ```
-python3 freq_plotter frequencies_file.txt basename_for_plots
+python3 freq_plotter frequencies_file.txt plot_type
 ```
 
-The basename for the plots needs a path too. It can be anything you like, but 2 files will be created: "your_prefix_freqs.png" and "your_prefix_cumul_freqs.png".
-That means you don't need to specify an extension.
+Where plot type can be either "c" for cumulative graph or "f" for frequency graph.
