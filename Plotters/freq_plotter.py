@@ -40,6 +40,8 @@ def parser(filename):
         else:
             d[lines] = 1
 
+    infile.close()
+
     return d
 
 
