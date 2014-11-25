@@ -27,6 +27,7 @@ from collections import OrderedDict
 
 
 def parser(filename):
+    '''Parses the frequencies file.'''
     infile = open(argv[1],"r")
 
     d = OrderedDict()
@@ -40,6 +41,7 @@ def parser(filename):
             d[lines] = 1
 
     return d
+
 
 def freq_plotter(d):
     '''Plots the frequencies of the SNPs per missing individuals'''
@@ -64,6 +66,7 @@ def freq_plotter(d):
     plt.tight_layout()
     plt.show()
 
+
 def comul_plotter(d):
     '''Plots the cumulative frequencies of the SNPs per missing individuals'''
     n_groups = len(d)
@@ -85,6 +88,7 @@ def comul_plotter(d):
 
     plt.tight_layout()
     plt.show()
+
 
 if __name__ == "__main__":
     d = parser(argv[1])
