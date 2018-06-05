@@ -1,6 +1,6 @@
 ## Unicorns and Cotton Candy
 
-![Unicorns and Cotton candy] (http://s3.favim.com/orig/46/cotton-candy-llama-ohmyshit-rainbow-unicorn-Favim.com-430326.jpg)
+![Unicorns and Cotton candy](http://s3.favim.com/orig/46/cotton-candy-llama-ohmyshit-rainbow-unicorn-Favim.com-430326.jpg)
 
 This is a complete parser, if you wish to transform nothing into nothing while creating entrophy. Using this
 can be handy in extreme situations, however it's equally usefull in other situations. 
